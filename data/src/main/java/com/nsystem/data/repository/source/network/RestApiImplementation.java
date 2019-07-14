@@ -6,7 +6,6 @@ import android.net.NetworkInfo;
 
 import com.nsystem.data.entity.MovieEntity;
 import com.nsystem.data.mapper.MovieEntityJsonMapper;
-import com.nsystem.data.mapper.TrailerEntityJsonMapper;
 
 import java.net.MalformedURLException;
 import java.util.List;
@@ -18,19 +17,14 @@ public class RestApiImplementation implements RestApi{
 
     private final Context context;
     private final MovieEntityJsonMapper movieEntityJsonMapper;
-    private final TrailerEntityJsonMapper trailerEntityJsonMapper;
 
     public RestApiImplementation(Context context,
-                                 MovieEntityJsonMapper movieEntityJsonMapper,
-                                 TrailerEntityJsonMapper trailerEntityJsonMapper) {
-        if (context == null ||
-                movieEntityJsonMapper == null ||
-                trailerEntityJsonMapper == null) {
+                                 MovieEntityJsonMapper movieEntityJsonMapper) {
+        if (context == null || movieEntityJsonMapper == null) {
             throw new IllegalArgumentException("No construftor and mapper found for movie network connection...");
         }
         this.context = context;
         this.movieEntityJsonMapper = movieEntityJsonMapper;
-        this.trailerEntityJsonMapper = trailerEntityJsonMapper;
     }
 
     @Override
@@ -95,29 +89,6 @@ public class RestApiImplementation implements RestApi{
             } else {
                 emitter.onError(new Exception());
             }
-        }).flatMap(this::getTrailerEntity);
-    }
-
-    private Observable<MovieEntity> getTrailerEntity(final Object object) {
-        return Observable.create(emitter -> {
-           if (isThereInternetConnection()) {
-               try {
-                   MovieEntity movieEntity = (MovieEntity) object;
-                   String responseTrailerList = getTrailerList(movieEntity.getMovieId());
-                   if (responseTrailerList != null) {
-                       movieEntity.setTrailers(trailerEntityJsonMapper.transformTrailerEntityCollection(responseTrailerList));
-
-                       emitter.onNext(movieEntity);
-                       emitter.onComplete();
-                   } else {
-                       emitter.onError(new Exception());
-                   }
-               } catch (Exception e) {
-                   emitter.onError(new Exception(e.getCause()));
-               }
-           } else {
-               emitter.onError(new Exception());
-           }
         });
     }
 
@@ -133,11 +104,6 @@ public class RestApiImplementation implements RestApi{
 
     private String getMovieDetailsFromApi(int movieId) throws MalformedURLException {
         String apiUrl = String.format(Locale.ENGLISH, API_MOVIE_DETAILS_URL, movieId, "en-US", 1);
-        return ApiConnection.createGET(apiUrl).requestSyncCall();
-    }
-
-    private String getTrailerList(int movieId) throws MalformedURLException {
-        String apiUrl = String.format(Locale.ENGLISH, API_TRAILER_URL, movieId, "en-US");
         return ApiConnection.createGET(apiUrl).requestSyncCall();
     }
 

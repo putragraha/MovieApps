@@ -13,12 +13,8 @@ import javax.inject.Inject;
 
 public class MovieEntityDataMapper {
 
-    private final TrailerEntityDataMapper trailerEntityDataMapper;
-
     @Inject
-    MovieEntityDataMapper() {
-        trailerEntityDataMapper = new TrailerEntityDataMapper();
-    }
+    MovieEntityDataMapper() {}
 
     public Movie transform(MovieEntity movieEntity) {
         Movie movie = null;
@@ -38,7 +34,6 @@ public class MovieEntityDataMapper {
             movie.setReleaseDate(movieEntity.getReleaseDate());
             movie.setDuration(movieEntity.getDuration());
             movie.setPopularity(movieEntity.getPopularity());
-            movie.setTrailers(trailerEntityDataMapper.transform(movieEntity.getTrailers()));
         }
         return movie;
     }

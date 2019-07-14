@@ -2,7 +2,6 @@ package com.nsystem.ntheatre.model;
 
 
 import com.nsystem.domain.model.Genre;
-import com.nsystem.domain.model.Trailer;
 
 import java.util.List;
 
@@ -17,7 +16,6 @@ public class MovieModel {
     private String releaseDate;
     private int duration;
     private String popularity;
-    private List<Trailer> trailers;
 
     public MovieModel(int movieId) {
         this.movieId = movieId;
@@ -81,14 +79,6 @@ public class MovieModel {
 
     public void setPopularity(String popularity) {
         this.popularity = popularity;
-    }
-
-    public List<Trailer> getTrailers() {
-        return trailers;
-    }
-
-    public void setTrailers(List<Trailer> trailers) {
-        this.trailers = trailers;
     }
 }
 

@@ -2,7 +2,6 @@ package com.nsystem.data.entity;
 
 import com.google.gson.annotations.SerializedName;
 import com.nsystem.domain.model.Genre;
-import com.nsystem.domain.model.Trailer;
 
 import java.util.List;
 
@@ -30,8 +29,6 @@ public class MovieEntity {
 
     @SerializedName("vote_average")
     private String popularity;
-
-    private List<TrailerEntity> trailers;
 
     public int getMovieId() {
         return movieId;
@@ -63,13 +60,5 @@ public class MovieEntity {
 
     public String getPopularity() {
         return popularity;
-    }
-
-    public List<TrailerEntity> getTrailers() {
-        return trailers;
-    }
-
-    public void setTrailers(List<TrailerEntity> trailers) {
-        this.trailers = trailers;
     }
 }
