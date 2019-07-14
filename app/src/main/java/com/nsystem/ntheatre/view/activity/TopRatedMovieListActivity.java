@@ -16,7 +16,7 @@ public class TopRatedMovieListActivity extends BaseActivity implements
         HasComponent<MovieComponent>, TopRatedMovieListFragment.MovieListListener {
 
     public static Intent getCallingIntent(Context context) {
-        return new Intent(context, PopularMovieListActivity.class);
+        return new Intent(context, TopRatedMovieListActivity.class);
     }
 
     private MovieComponent movieComponent;

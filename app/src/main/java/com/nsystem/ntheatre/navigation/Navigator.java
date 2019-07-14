@@ -1,5 +1,6 @@
 package com.nsystem.ntheatre.navigation;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 
@@ -20,6 +21,7 @@ public class Navigator {
         if (context != null) {
             Intent intentToLaunch = PopularMovieListActivity.getCallingIntent(context);
             context.startActivity(intentToLaunch);
+            ((Activity) context).finish();
         }
     }
 
@@ -27,6 +29,7 @@ public class Navigator {
         if (context != null) {
             Intent intentToLaunch = TopRatedMovieListActivity.getCallingIntent(context);
             context.startActivity(intentToLaunch);
+            ((Activity) context).finish();
         }
     }
 
@@ -34,6 +37,7 @@ public class Navigator {
         if (context != null) {
             Intent intentToLaunch = MovieDetailsActivity.getCallingIntent(context, movieId);
             context.startActivity(intentToLaunch);
+            ((Activity) context).finish();
         }
     }
 }

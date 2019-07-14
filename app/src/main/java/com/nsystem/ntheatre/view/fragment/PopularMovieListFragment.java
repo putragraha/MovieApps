@@ -3,7 +3,6 @@ package com.nsystem.ntheatre.view.fragment;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +12,6 @@ import android.widget.RelativeLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.nsystem.ntheatre.R;
@@ -87,7 +85,7 @@ public class PopularMovieListFragment extends BaseFragment implements MovieListV
         super.onViewCreated(view, savedInstanceState);
         this.popularMovieListPresenter.setView(this);
         if (savedInstanceState == null) {
-            this.loadUserList();
+            this.loadMovieList();
         }
     }
 
@@ -168,12 +166,12 @@ public class PopularMovieListFragment extends BaseFragment implements MovieListV
         return this.getActivity().getApplicationContext();
     }
 
-    private void loadUserList() {
+    private void loadMovieList() {
         this.popularMovieListPresenter.initialize();
     }
 
     @OnClick(R.id.btn_retry) void onButtonRetryClick() {
-        PopularMovieListFragment.this.loadUserList();
+        PopularMovieListFragment.this.loadMovieList();
     }
 
     private void setupRecyclerView() {

@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.nsystem.ntheatre.R;
@@ -83,7 +84,7 @@ public class TopRatedMovieListFragment extends BaseFragment implements MovieList
         super.onViewCreated(view, savedInstanceState);
         this.topRatedMovieListPresenter.setView(this);
         if (savedInstanceState == null) {
-            this.loadUserList();
+            this.loadMovieList();
         }
     }
 
@@ -164,12 +165,12 @@ public class TopRatedMovieListFragment extends BaseFragment implements MovieList
         return this.getActivity().getApplicationContext();
     }
 
-    private void loadUserList() {
+    private void loadMovieList() {
         this.topRatedMovieListPresenter.initialize();
     }
 
     @OnClick(R.id.btn_retry) void onButtonRetryClick() {
-        TopRatedMovieListFragment.this.loadUserList();
+        TopRatedMovieListFragment.this.loadMovieList();
     }
 
 
@@ -179,5 +180,7 @@ public class TopRatedMovieListFragment extends BaseFragment implements MovieList
                 TopRatedMovieListFragment.this.topRatedMovieListPresenter.onMovieClicked(movieModel);
             }
         });
+        this.viewMovieList.setLayoutManager(new GridLayoutManager(context(), 2));
+        this.viewMovieList.setAdapter(moviesAdapter);
     }
 }
