@@ -59,7 +59,8 @@
                     android:id="@+id/btn_details_favourite"
                     android:text="@string/label_favourite"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"/>
 
             </LinearLayout>
 
@@ -72,17 +73,21 @@
             android:layout_marginTop="10dp"/>
 
         <View
+            android:id="@+id/view_detail_separator"
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:background="#000"
-            android:layout_marginTop="10dp"/>
+            android:layout_marginTop="10dp"
+            android:visibility="gone"/>
 
         <TextView
+            android:id="@+id/tv_detail_trailer_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="10dp"
-            android:text="@string/label_trailers"/>
+            android:text="@string/label_trailers"
+            android:visibility="gone"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/view_trailer_list"

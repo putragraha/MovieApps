@@ -52,6 +52,8 @@ public class MovieDetailsFragment extends BaseFragment implements MovieDetailsVi
     @BindView(R.id.tv_popularity) TextView textViewPopularity;
     @BindView(R.id.btn_details_favourite) ToggleButton btnFavourite;
     @BindView(R.id.tv_overview) TextView textViewOverview;
+    @BindView(R.id.tv_detail_trailer_title) TextView textViewTrailerDetail;
+    @BindView(R.id.view_detail_separator) View viewSeparator;
     @BindView(R.id.view_trailer_list) RecyclerView viewTrailerList;
 
     @BindView(R.id.view_loading) RelativeLayout viewLoading;
@@ -119,6 +121,10 @@ public class MovieDetailsFragment extends BaseFragment implements MovieDetailsVi
     public void renderMovie(MovieModel movieModel) {
         if (movieModel != null) {
             try {
+                this.textViewTrailerDetail.setVisibility(View.VISIBLE);
+                this.viewSeparator.setVisibility(View.VISIBLE);
+                this.btnFavourite.setVisibility(View.VISIBLE);
+
                 String duration = movieModel.getDuration() + " min";
                 String releaseDate = ConvertDate.to(movieModel.getReleaseDate(),
                         ConvertDate.YYYY_MM_DD,
