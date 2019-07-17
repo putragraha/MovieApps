@@ -2,7 +2,9 @@ package com.nsystem.ntheatre.presenter;
 
 import androidx.annotation.NonNull;
 
+import com.nsystem.domain.interactor.AddFavourite;
 import com.nsystem.domain.interactor.GetMovieDetails;
+import com.nsystem.domain.model.Favourite;
 import com.nsystem.domain.model.Movie;
 import com.nsystem.ntheatre.internal.di.PerActivity;
 import com.nsystem.ntheatre.mapper.MovieModelDataMapper;
@@ -20,12 +22,15 @@ public class MovieDetailsPresenter implements Presenter {
     private MovieDetailsView viewDetailsView;
 
     private final GetMovieDetails getMovieDetailsUseCase;
+    private final AddFavourite addFavouriteUseCase;
     private final MovieModelDataMapper movieModelDataMapper;
 
     @Inject
     public MovieDetailsPresenter(GetMovieDetails getMovieDetailsUseCase,
+                                 AddFavourite addFavourite,
                                  MovieModelDataMapper movieModelDataMapper) {
         this.getMovieDetailsUseCase = getMovieDetailsUseCase;
+        this.addFavouriteUseCase = addFavourite;
         this.movieModelDataMapper = movieModelDataMapper;
     }
 
@@ -57,6 +62,11 @@ public class MovieDetailsPresenter implements Presenter {
         this.viewDetailsView.openTrailer(trailerModel);
     }
 
+    public void addFavouriteMovie(Favourite favourite) {
+        this.addFavouriteUseCase.execute(new AddFavouriteObserver(),
+                AddFavourite.Params.forFavouriteMovie(favourite));
+    }
+
     private void showViewRetry() {
         this.viewDetailsView.showRetry();
     }
@@ -86,6 +96,14 @@ public class MovieDetailsPresenter implements Presenter {
         this.viewDetailsView.renderMovie(movieModel);
     }
 
+    private void toggleFavourite(boolean isActivated) {
+        this.viewDetailsView.toggleFavourite(isActivated);
+    }
+
+    private void rollbackToggle() {
+        this.viewDetailsView.rollbackToggle();
+    }
+
     private final class MovieDetailsObserver extends DisposableObserver<Movie> {
 
         @Override
@@ -104,5 +122,22 @@ public class MovieDetailsPresenter implements Presenter {
         public void onComplete() {
             MovieDetailsPresenter.this.hideViewLoading();
         }
+    }
+
+    private final class AddFavouriteObserver extends DisposableObserver<Long> {
+
+        @Override
+        public void onNext(Long aLong) {
+            MovieDetailsPresenter.this.toggleFavourite(aLong > 0);
+        }
+
+        @Override
+        public void onError(Throwable e) {
+            MovieDetailsPresenter.this.rollbackToggle();
+            MovieDetailsPresenter.this.showErrorMessage(e.getMessage());
+        }
+
+        @Override
+        public void onComplete() {}
     }
 }

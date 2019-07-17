@@ -52,11 +52,7 @@ public class FavouriteMoviesAdapter extends RecyclerView.Adapter<FavouriteMovies
     @Override
     public void onBindViewHolder(@NonNull FavouriteMovieViewHolder holder, int position) {
         final FavouriteModel favouriteModel = this.favouriteMoviesCollection.get(position);
-        final String posterUrl = String.format(Locale.ENGLISH,
-                RestApi.API_IMAGE_URL,
-                RestApi.IMAGE_SIZE_200,
-                favouriteModel.getPosterPath());
-        Picasso.get().load(posterUrl).into(holder.imageViewPoster);
+        Picasso.get().load(favouriteModel.getPosterPath()).into(holder.imageViewPoster);
 
         holder.imageViewPoster.setOnClickListener(view -> {
             if (FavouriteMoviesAdapter.this.onItemClickListener != null) {

@@ -1,14 +1,17 @@
 package com.nsystem.data.repository.local;
 
 import android.database.Cursor;
+import androidx.room.EntityInsertionAdapter;
 import androidx.room.RoomDatabase;
 import androidx.room.RoomSQLiteQuery;
 import androidx.room.RxRoom;
 import androidx.room.util.CursorUtil;
 import androidx.room.util.DBUtil;
+import androidx.sqlite.db.SupportSQLiteStatement;
 import com.nsystem.data.entity.FavouriteEntity;
 import io.reactivex.Observable;
 import java.lang.Exception;
+import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
@@ -22,8 +25,39 @@ import javax.annotation.Generated;
 public final class FavouriteMovieDao_Impl implements FavouriteMovieDao {
   private final RoomDatabase __db;
 
+  private final EntityInsertionAdapter __insertionAdapterOfFavouriteEntity;
+
   public FavouriteMovieDao_Impl(RoomDatabase __db) {
     this.__db = __db;
+    this.__insertionAdapterOfFavouriteEntity = new EntityInsertionAdapter<FavouriteEntity>(__db) {
+      @Override
+      public String createQuery() {
+        return "INSERT OR ABORT INTO `Favourite`(`movieId`,`posterPath`) VALUES (?,?)";
+      }
+
+      @Override
+      public void bind(SupportSQLiteStatement stmt, FavouriteEntity value) {
+        stmt.bindLong(1, value.getMovieId());
+        if (value.getPosterPath() == null) {
+          stmt.bindNull(2);
+        } else {
+          stmt.bindString(2, value.getPosterPath());
+        }
+      }
+    };
+  }
+
+  @Override
+  public Long addFavouriteMovie(final FavouriteEntity favouriteEntity) {
+    __db.assertNotSuspendingTransaction();
+    __db.beginTransaction();
+    try {
+      long _result = __insertionAdapterOfFavouriteEntity.insertAndReturnId(favouriteEntity);
+      __db.setTransactionSuccessful();
+      return _result;
+    } finally {
+      __db.endTransaction();
+    }
   }
 
   @Override

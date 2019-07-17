@@ -39,4 +39,12 @@ public class LocalMovieData implements MovieData {
     public Observable<MovieEntity> movieEntity(int movieId) {
         return null;
     }
+
+    @Override
+    public Observable<Long> addFavouriteEntity(FavouriteEntity favouriteEntity) {
+        return Observable.just(FavouriteMovieDatabase.getDBInstance(this.context)
+                .getMovieDao().addFavouriteMovie(favouriteEntity));
+    }
+
+
 }

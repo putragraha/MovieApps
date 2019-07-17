@@ -6,4 +6,6 @@ import com.nsystem.ntheatre.model.TrailerModel;
 public interface MovieDetailsView extends LoadDataView {
     void renderMovie(MovieModel movieModel);
     void openTrailer(TrailerModel trailerModel);
+    void toggleFavourite(boolean isActivated);
+    void rollbackToggle();
 }

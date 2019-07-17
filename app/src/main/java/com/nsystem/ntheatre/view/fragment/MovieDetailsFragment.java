@@ -19,6 +19,7 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.nsystem.domain.model.Favourite;
 import com.nsystem.ntheatre.R;
 import com.nsystem.ntheatre.internal.di.components.MovieComponent;
 import com.nsystem.ntheatre.model.MovieModel;
@@ -36,6 +37,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
@@ -61,6 +63,7 @@ public class MovieDetailsFragment extends BaseFragment implements MovieDetailsVi
     @BindView(R.id.btn_retry) Button btnRetry;
 
     private Unbinder binder;
+    private MovieModel movieModel;
 
     public static MovieDetailsFragment forMovie(int movieId) {
         final MovieDetailsFragment movieDetailsFragment = new MovieDetailsFragment();
@@ -119,25 +122,26 @@ public class MovieDetailsFragment extends BaseFragment implements MovieDetailsVi
 
     @Override
     public void renderMovie(MovieModel movieModel) {
-        if (movieModel != null) {
+        setMovieModel(movieModel);
+        if (this.movieModel != null) {
             try {
                 this.textViewTrailerDetail.setVisibility(View.VISIBLE);
                 this.viewSeparator.setVisibility(View.VISIBLE);
                 this.btnFavourite.setVisibility(View.VISIBLE);
 
-                String duration = movieModel.getDuration() + " min";
-                String releaseDate = ConvertDate.to(movieModel.getReleaseDate(),
+                String duration = this.movieModel.getDuration() + " min";
+                String releaseDate = ConvertDate.to(this.movieModel.getReleaseDate(),
                         ConvertDate.YYYY_MM_DD,
                         ConvertDate.MMM_DD_COMMA_YYYY);
-                String popularity = movieModel.getPopularity() + "/10";
+                String popularity = this.movieModel.getPopularity() + "/10";
 
-                this.textViewTitle.setText(movieModel.getOriginalTitle());
-                Picasso.get().load(movieModel.getPosterPath()).into(this.imageViewPoster);
+                this.textViewTitle.setText(this.movieModel.getOriginalTitle());
+                Picasso.get().load(this.movieModel.getPosterPath()).into(this.imageViewPoster);
                 this.textViewReleaseDate.setText(releaseDate);
                 this.textViewDuration.setText(duration);
                 this.textViewPopularity.setText(popularity);
-                this.textViewOverview.setText(movieModel.getOverview());
-                setupRecyclerView(movieModel.getTrailerModelList());
+                this.textViewOverview.setText(this.movieModel.getOverview());
+                setupRecyclerView(this.movieModel.getTrailerModelList());
             } catch (ParseException parseException) {
                 showToastMessage(parseException.getMessage());
             }
@@ -160,6 +164,16 @@ public class MovieDetailsFragment extends BaseFragment implements MovieDetailsVi
         } catch (ActivityNotFoundException ex) {
             context().startActivity(webIntent);
         }
+    }
+
+    @Override
+    public void toggleFavourite(boolean isActivated) {
+        btnFavourite.setChecked(isActivated);
+    }
+
+    @Override
+    public void rollbackToggle() {
+        btnFavourite.setChecked(!btnFavourite.isActivated());
     }
 
     private void setupRecyclerView(List<TrailerModel> trailerModelList) {
@@ -205,6 +219,10 @@ public class MovieDetailsFragment extends BaseFragment implements MovieDetailsVi
         return getActivity().getApplicationContext();
     }
 
+    private void setMovieModel(MovieModel movieModel) {
+        this.movieModel = movieModel;
+    }
+
     private void loadMovieDetails() {
         if (this.movieDetailsPresenter != null) {
             this.movieDetailsPresenter.initialize(currentMovieId());
@@ -219,5 +237,13 @@ public class MovieDetailsFragment extends BaseFragment implements MovieDetailsVi
     @OnClick(R.id.btn_retry)
     void onButtonRetryClick() {
         MovieDetailsFragment.this.loadMovieDetails();
+    }
+
+    @OnCheckedChanged(R.id.btn_details_favourite)
+    void onChecked() {
+        Favourite favourite = new Favourite();
+        favourite.setMovieId(this.movieModel.getMovieId());
+        favourite.setPosterPath(this.movieModel.getPosterPath());
+        this.movieDetailsPresenter.addFavouriteMovie(favourite);
     }
 }

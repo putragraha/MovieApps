@@ -35,4 +35,9 @@ public class CloudMovieData implements MovieData {
     public Observable<MovieEntity> movieEntity(int movieId) {
         return this.restApi.movieEntity(movieId);
     }
+
+    @Override
+    public Observable<Long> addFavouriteEntity(FavouriteEntity favouriteEntity) {
+        return null;
+    }
 }

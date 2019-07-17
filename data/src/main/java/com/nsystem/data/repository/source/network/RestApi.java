@@ -10,7 +10,6 @@ import io.reactivex.Observable;
 public interface RestApi {
     String API_BASE_URL = "https://api.themoviedb.org/3/movie/";
     String API_IMAGE_BASE_URL = "https://image.tmdb.org/t/p/";
-    String YOUTUBE_URL = "https://www.youtube.com/watch?v=%s";
 
     String API_KEY = "299aa91229ad482944c2c6462a0d9117";
 

@@ -54,4 +54,10 @@ public class MovieDataRepository implements MovieRepository {
         final MovieData movieData = this.movieDataFactory.createCloudData();
         return movieData.movieEntity(movieId).map(this.movieEntityDataMapper::transform);
     }
+
+    @Override
+    public Observable<Long> addFavourite(Favourite favourite) {
+        final MovieData movieData = this.movieDataFactory.createLocalData();
+        return movieData.addFavouriteEntity(this.favouriteMovieEntityDataMapper.deform(favourite));
+    }
 }

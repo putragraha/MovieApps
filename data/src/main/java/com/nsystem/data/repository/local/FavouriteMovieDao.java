@@ -1,6 +1,7 @@
 package com.nsystem.data.repository.local;
 
 import androidx.room.Dao;
+import androidx.room.Insert;
 import androidx.room.Query;
 
 import com.nsystem.data.entity.FavouriteEntity;
@@ -14,4 +15,7 @@ public interface FavouriteMovieDao {
 
     @Query("SELECT * FROM Favourite")
     Observable<List<FavouriteEntity>> getFavouriteMovieList();
+
+    @Insert
+    Long addFavouriteMovie(FavouriteEntity favouriteEntity);
 }

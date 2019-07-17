@@ -12,4 +12,5 @@ public interface MovieRepository {
     Observable<List<Movie>> topRatedMovies();
     Observable<List<Favourite>> favouriteMovies();
     Observable<Movie> movie(final int movieId);
+    Observable<Long> addFavourite(Favourite favourite);
 }

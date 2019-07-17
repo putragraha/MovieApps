@@ -40,4 +40,25 @@ public class FavouriteMovieEntityDataMapper {
         }
         return favouriteList;
     }
+
+    public FavouriteEntity deform(Favourite favourite) {
+        FavouriteEntity favouriteEntity = null;
+        if (favourite != null) {
+            favouriteEntity = new FavouriteEntity();
+            favouriteEntity.setMovieId(favourite.getMovieId());
+            favouriteEntity.setPosterPath(favourite.getPosterPath());
+        }
+        return favouriteEntity;
+    }
+
+    public List<FavouriteEntity> deform(Collection<Favourite> favouriteCollection) {
+        final List<FavouriteEntity> favouriteEntityList = new ArrayList<>();
+        for (Favourite favourite : favouriteCollection) {
+            final FavouriteEntity favouriteEntity = deform(favourite);
+            if (favouriteEntity != null) {
+                favouriteEntityList.add(favouriteEntity);
+            }
+        }
+        return favouriteEntityList;
+    }
 }
