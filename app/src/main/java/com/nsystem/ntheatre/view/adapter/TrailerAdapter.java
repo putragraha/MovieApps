@@ -55,12 +55,12 @@ public class TrailerAdapter extends RecyclerView.Adapter<TrailerAdapter.TrailerV
     }
 
     public void setTrailerCollection(Collection<TrailerModel> moviesModelCollection) {
-        this.validateUsersCollection(moviesModelCollection);
+        this.validateTrailersCollection(moviesModelCollection);
         this.trailerCollection = (List<TrailerModel>) moviesModelCollection;
         this.notifyDataSetChanged();
     }
 
-    private void validateUsersCollection(Collection<TrailerModel> moviesModelCollection) {
+    private void validateTrailersCollection(Collection<TrailerModel> moviesModelCollection) {
         if (moviesModelCollection == null) {
             throw new IllegalArgumentException("The list cannot be null");
         }
