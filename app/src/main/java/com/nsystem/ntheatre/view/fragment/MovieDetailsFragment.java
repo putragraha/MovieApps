@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -38,7 +37,6 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
@@ -149,7 +147,12 @@ public class MovieDetailsFragment extends BaseFragment implements MovieDetailsVi
                     Favourite favourite = new Favourite();
                     favourite.setMovieId(MovieDetailsFragment.this.movieModel.getMovieId());
                     favourite.setPosterPath(MovieDetailsFragment.this.movieModel.getPosterPath());
-                    MovieDetailsFragment.this.movieDetailsPresenter.addFavouriteMovie(favourite);
+
+                    if (btnFavourite.isChecked()) {
+                        this.movieDetailsPresenter.addFavouriteMovie(favourite);
+                    } else {
+                        this.movieDetailsPresenter.unFavouriteMovie(favourite);
+                    }
                 });
             } catch (ParseException parseException) {
                 showToastMessage(parseException.getMessage());
@@ -176,13 +179,8 @@ public class MovieDetailsFragment extends BaseFragment implements MovieDetailsVi
     }
 
     @Override
-    public void toggleFavourite(boolean isActivated) {
-        btnFavourite.setChecked(isActivated);
-    }
-
-    @Override
-    public void rollbackToggle() {
-        btnFavourite.setChecked(!btnFavourite.isActivated());
+    public void toggleFavourite(boolean isChecked) {
+        btnFavourite.setChecked(isChecked);
     }
 
     private void setupRecyclerView(List<TrailerModel> trailerModelList) {

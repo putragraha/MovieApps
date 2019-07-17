@@ -60,4 +60,10 @@ public class MovieDataRepository implements MovieRepository {
         final MovieData movieData = this.movieDataFactory.createLocalData();
         return movieData.addFavouriteEntity(this.favouriteMovieEntityDataMapper.deform(favourite));
     }
+
+    @Override
+    public Observable<Integer> unFavourite(Favourite favourite) {
+        final MovieData movieData = this.movieDataFactory.createLocalData();
+        return movieData.unFavouriteEntity(this.favouriteMovieEntityDataMapper.deform(favourite));
+    }
 }

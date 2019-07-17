@@ -1,6 +1,7 @@
 package com.nsystem.data.repository.local;
 
 import android.database.Cursor;
+import androidx.room.EntityDeletionOrUpdateAdapter;
 import androidx.room.EntityInsertionAdapter;
 import androidx.room.RoomDatabase;
 import androidx.room.RoomSQLiteQuery;
@@ -11,6 +12,7 @@ import androidx.sqlite.db.SupportSQLiteStatement;
 import com.nsystem.data.entity.FavouriteEntity;
 import io.reactivex.Observable;
 import java.lang.Exception;
+import java.lang.Integer;
 import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
@@ -26,6 +28,8 @@ public final class FavouriteMovieDao_Impl implements FavouriteMovieDao {
   private final RoomDatabase __db;
 
   private final EntityInsertionAdapter __insertionAdapterOfFavouriteEntity;
+
+  private final EntityDeletionOrUpdateAdapter __deletionAdapterOfFavouriteEntity;
 
   public FavouriteMovieDao_Impl(RoomDatabase __db) {
     this.__db = __db;
@@ -45,6 +49,17 @@ public final class FavouriteMovieDao_Impl implements FavouriteMovieDao {
         }
       }
     };
+    this.__deletionAdapterOfFavouriteEntity = new EntityDeletionOrUpdateAdapter<FavouriteEntity>(__db) {
+      @Override
+      public String createQuery() {
+        return "DELETE FROM `Favourite` WHERE `movieId` = ?";
+      }
+
+      @Override
+      public void bind(SupportSQLiteStatement stmt, FavouriteEntity value) {
+        stmt.bindLong(1, value.getMovieId());
+      }
+    };
   }
 
   @Override
@@ -55,6 +70,20 @@ public final class FavouriteMovieDao_Impl implements FavouriteMovieDao {
       long _result = __insertionAdapterOfFavouriteEntity.insertAndReturnId(favouriteEntity);
       __db.setTransactionSuccessful();
       return _result;
+    } finally {
+      __db.endTransaction();
+    }
+  }
+
+  @Override
+  public Integer unFavouriteMovie(final FavouriteEntity favouriteEntity) {
+    __db.assertNotSuspendingTransaction();
+    int _total = 0;
+    __db.beginTransaction();
+    try {
+      _total +=__deletionAdapterOfFavouriteEntity.handle(favouriteEntity);
+      __db.setTransactionSuccessful();
+      return _total;
     } finally {
       __db.endTransaction();
     }

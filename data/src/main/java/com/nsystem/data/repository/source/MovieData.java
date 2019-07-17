@@ -15,4 +15,5 @@ public interface MovieData {
     Observable<List<FavouriteEntity>> favouriteMovieEntityList();
     Observable<MovieEntity> movieEntity(final int movieId);
     Observable<Long> addFavouriteEntity(FavouriteEntity favouriteEntity);
+    Observable<Integer> unFavouriteEntity(FavouriteEntity favouriteEntity);
 }

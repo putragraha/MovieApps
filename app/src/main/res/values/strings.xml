@@ -6,4 +6,5 @@
     <string name="label_app_title_popular">Popular Movie</string>
     <string name="label_app_title_top_rated">Top Rated Movie</string>
     <string name="label_app_title_favourite">Favourite Movie</string>
+    <string name="label_button_details_favourite">Favourite</string>
 </resources>

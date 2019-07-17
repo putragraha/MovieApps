@@ -60,7 +60,9 @@
                     android:text="@string/label_favourite"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"/>
+                    android:visibility="gone"
+                    android:textOn="@string/label_button_details_favourite"
+                    android:textOff="@string/label_button_details_favourite"/>
 
             </LinearLayout>
 

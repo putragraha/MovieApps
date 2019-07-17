@@ -40,4 +40,9 @@ public class CloudMovieData implements MovieData {
     public Observable<Long> addFavouriteEntity(FavouriteEntity favouriteEntity) {
         return null;
     }
+
+    @Override
+    public Observable<Integer> unFavouriteEntity(FavouriteEntity favouriteEntity) {
+        return null;
+    }
 }

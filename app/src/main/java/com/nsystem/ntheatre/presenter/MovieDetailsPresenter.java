@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 
 import com.nsystem.domain.interactor.AddFavourite;
 import com.nsystem.domain.interactor.GetMovieDetails;
+import com.nsystem.domain.interactor.UnFavourite;
 import com.nsystem.domain.model.Favourite;
 import com.nsystem.domain.model.Movie;
 import com.nsystem.ntheatre.internal.di.PerActivity;
@@ -23,14 +24,17 @@ public class MovieDetailsPresenter implements Presenter {
 
     private final GetMovieDetails getMovieDetailsUseCase;
     private final AddFavourite addFavouriteUseCase;
+    private final UnFavourite unFavouriteUseCase;
     private final MovieModelDataMapper movieModelDataMapper;
 
     @Inject
     public MovieDetailsPresenter(GetMovieDetails getMovieDetailsUseCase,
                                  AddFavourite addFavourite,
+                                 UnFavourite unFavourite,
                                  MovieModelDataMapper movieModelDataMapper) {
         this.getMovieDetailsUseCase = getMovieDetailsUseCase;
         this.addFavouriteUseCase = addFavourite;
+        this.unFavouriteUseCase = unFavourite;
         this.movieModelDataMapper = movieModelDataMapper;
     }
 
@@ -67,6 +71,11 @@ public class MovieDetailsPresenter implements Presenter {
                 AddFavourite.Params.forFavouriteMovie(favourite));
     }
 
+    public void unFavouriteMovie(Favourite favourite) {
+        this.unFavouriteUseCase.execute(new UnFavouriteObserver(),
+                UnFavourite.Params.forFavouriteMovie(favourite));
+    }
+
     private void showViewRetry() {
         this.viewDetailsView.showRetry();
     }
@@ -96,12 +105,8 @@ public class MovieDetailsPresenter implements Presenter {
         this.viewDetailsView.renderMovie(movieModel);
     }
 
-    private void toggleFavourite(boolean isActivated) {
-        this.viewDetailsView.toggleFavourite(isActivated);
-    }
-
-    private void rollbackToggle() {
-        this.viewDetailsView.rollbackToggle();
+    private void toggleFavourite(boolean isChecked) {
+        this.viewDetailsView.toggleFavourite(isChecked);
     }
 
     private final class MovieDetailsObserver extends DisposableObserver<Movie> {
@@ -133,7 +138,24 @@ public class MovieDetailsPresenter implements Presenter {
 
         @Override
         public void onError(Throwable e) {
-            MovieDetailsPresenter.this.rollbackToggle();
+            MovieDetailsPresenter.this.toggleFavourite(false);
+            MovieDetailsPresenter.this.showErrorMessage(e.getMessage());
+        }
+
+        @Override
+        public void onComplete() {}
+    }
+
+    private final class UnFavouriteObserver extends DisposableObserver<Integer> {
+
+        @Override
+        public void onNext(Integer anInteger) {
+            MovieDetailsPresenter.this.toggleFavourite(anInteger <= 0);
+        }
+
+        @Override
+        public void onError(Throwable e) {
+            MovieDetailsPresenter.this.toggleFavourite(true);
             MovieDetailsPresenter.this.showErrorMessage(e.getMessage());
         }
 
