@@ -15,7 +15,7 @@ public class SplashActivity extends BaseActivity {
         new Handler().postDelayed(() ->
                 SplashActivity.this.navigator.navigateToPopularMovieList(
                 SplashActivity.this
-        ), 1000);
+        ), 2000);
     }
 
 }
