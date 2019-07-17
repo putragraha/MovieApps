@@ -1,6 +1,9 @@
 package com.nsystem.ntheatre.view.fragment;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -137,7 +140,20 @@ public class MovieDetailsFragment extends BaseFragment implements MovieDetailsVi
 
     @Override
     public void openTrailer(TrailerModel trailerModel) {
-        System.out.println(trailerModel.getKey());
+        String youtubeKey = trailerModel.getKey();
+
+        Intent appIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:" + youtubeKey));
+        appIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+        Intent webIntent = new Intent(Intent.ACTION_VIEW,
+                Uri.parse("http://www.youtube.com/watch?v=" + youtubeKey));
+        webIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+        try {
+            context().startActivity(appIntent);
+        } catch (ActivityNotFoundException ex) {
+            context().startActivity(webIntent);
+        }
     }
 
     private void setupRecyclerView(List<TrailerModel> trailerModelList) {
