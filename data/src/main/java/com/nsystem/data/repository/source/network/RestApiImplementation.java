@@ -126,6 +126,11 @@ public class RestApiImplementation implements RestApi{
                     trailersObserver.subscribe(new DisposableObserver<List<TrailerEntity>>() {
                         @Override
                         public void onNext(List<TrailerEntity> trailerEntities) {
+                            for (TrailerEntity trailerEntity : trailerEntities) {
+                                if (!trailerEntity.getSite().equalsIgnoreCase("Youtube")) {
+                                    trailerEntities.remove(trailerEntity);
+                                }
+                            }
                             newMovieEntity.setTrailerEntityList(trailerEntities);
                         }
 
