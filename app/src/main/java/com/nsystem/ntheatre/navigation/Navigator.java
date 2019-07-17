@@ -21,6 +21,7 @@ public class Navigator {
         if (context != null) {
             Intent intentToLaunch = PopularMovieListActivity.getCallingIntent(context);
             context.startActivity(intentToLaunch);
+            ((Activity) context).finish();
         }
     }
 
@@ -28,6 +29,7 @@ public class Navigator {
         if (context != null) {
             Intent intentToLaunch = TopRatedMovieListActivity.getCallingIntent(context);
             context.startActivity(intentToLaunch);
+            ((Activity) context).finish();
         }
     }
 

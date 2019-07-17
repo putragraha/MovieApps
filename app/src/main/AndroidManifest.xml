@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.activity.SplashActivity">
+        <activity android:name=".view.activity.SplashActivity"
+            android:theme="@style/NoActionBarTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,7 +23,7 @@
         <activity android:name=".view.activity.PopularMovieListActivity"
             android:label="@string/label_app_title_popular"/>
         <activity android:name=".view.activity.TopRatedMovieListActivity"
-            android:label="@string/label_app_title_top_rated"/>
+            android:label="@string/label_app_title_top_rated" />
         <activity android:name=".view.activity.MovieDetailsActivity" />
     </application>
 
