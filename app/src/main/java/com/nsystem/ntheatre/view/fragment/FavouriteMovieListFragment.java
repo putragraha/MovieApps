@@ -174,7 +174,6 @@ public class FavouriteMovieListFragment extends BaseFragment implements Favourit
         FavouriteMovieListFragment.this.loadFavouriteMovieList();
     }
 
-
     private void setupRecyclerView() {
         this.favouriteMoviesAdapter.setOnItemClickListener(movieModel -> {
             if (FavouriteMovieListFragment.this.favouriteMovieListPresenter != null && movieModel != null) {

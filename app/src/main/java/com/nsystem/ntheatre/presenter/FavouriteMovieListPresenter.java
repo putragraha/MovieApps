@@ -104,6 +104,7 @@ public class FavouriteMovieListPresenter implements Presenter{
         @Override
         public void onNext(List<Favourite> favourites) {
             FavouriteMovieListPresenter.this.showFavouriteMovieCollectionInView(favourites);
+            FavouriteMovieListPresenter.this.hideViewLoading();
         }
 
         @Override
