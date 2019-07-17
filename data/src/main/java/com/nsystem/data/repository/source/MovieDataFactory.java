@@ -5,6 +5,7 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 
 import com.nsystem.data.mapper.MovieEntityJsonMapper;
+import com.nsystem.data.mapper.TrailerEntityJsonMapper;
 import com.nsystem.data.repository.source.network.RestApi;
 import com.nsystem.data.repository.source.network.RestApiImplementation;
 
@@ -23,7 +24,8 @@ public class MovieDataFactory {
 
     public MovieData createCloudData() {
         final MovieEntityJsonMapper movieEntityJsonMapper = new MovieEntityJsonMapper();
-        final RestApi restApi = new RestApiImplementation(this.context, movieEntityJsonMapper);
+        final TrailerEntityJsonMapper trailerEntityJsonMapper = new TrailerEntityJsonMapper();
+        final RestApi restApi = new RestApiImplementation(this.context, movieEntityJsonMapper, trailerEntityJsonMapper);
 
         return new CloudMovieData(restApi);
     }

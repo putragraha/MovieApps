@@ -30,6 +30,8 @@ public class MovieEntity {
     @SerializedName("vote_average")
     private String popularity;
 
+    private List<TrailerEntity> trailerEntityList;
+
     public int getMovieId() {
         return movieId;
     }
@@ -60,5 +62,13 @@ public class MovieEntity {
 
     public String getPopularity() {
         return popularity;
+    }
+
+    public List<TrailerEntity> getTrailerEntityList() {
+        return trailerEntityList;
+    }
+
+    public void setTrailerEntityList(List<TrailerEntity> trailerEntityList) {
+        this.trailerEntityList = trailerEntityList;
     }
 }

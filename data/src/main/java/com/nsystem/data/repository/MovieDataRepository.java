@@ -1,6 +1,5 @@
 package com.nsystem.data.repository;
 
-import com.nsystem.data.entity.MovieEntity;
 import com.nsystem.data.mapper.MovieEntityDataMapper;
 import com.nsystem.data.repository.source.MovieData;
 import com.nsystem.data.repository.source.MovieDataFactory;
@@ -13,8 +12,6 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import io.reactivex.Observable;
-import io.reactivex.ObservableSource;
-import io.reactivex.functions.Function;
 
 @Singleton
 public class MovieDataRepository implements MovieRepository {
