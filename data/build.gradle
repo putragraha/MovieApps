@@ -35,5 +35,10 @@ android {
         implementation dataDependencies.rxJava
         implementation dataDependencies.rxAndroid
         implementation dataDependencies.androidAnnotations
+
+        implementation dataDependencies.room
+        implementation dataDependencies.roomRxJava
+
+        annotationProcessor dataDependencies.roomCompiler
     }
 }

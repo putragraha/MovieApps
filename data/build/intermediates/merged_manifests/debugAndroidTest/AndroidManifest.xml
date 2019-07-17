@@ -17,8 +17,13 @@
 
     <application
         android:allowBackup="true"
+        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
         android:debuggable="true" >
         <uses-library android:name="android.test.runner" />
+
+        <service
+            android:name="androidx.room.MultiInstanceInvalidationService"
+            android:exported="false" />
     </application>
 
 </manifest>

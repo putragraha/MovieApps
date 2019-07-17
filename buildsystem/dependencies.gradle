@@ -25,6 +25,8 @@ ext {
     picassoVersion = "2.71828"
     androidAnnotationVersion = "4.6.0"
 
+    roomVersion = "2.1.0"
+
     leakCanaryVersion = "1.6.3"
 
     dependencies = [
@@ -43,6 +45,9 @@ ext {
             gson:                       "com.google.code.gson:gson:${gsonVersion}",
             androidAnnotations:         "com.android.support:support-annotations:${androidAnnotationVersion}",
             leakCanary:                 "com.squareup.leakcanary:leakcanary-android:${leakCanaryVersion}",
-            picasso:                    "com.squareup.picasso:picasso:${picassoVersion}"
+            picasso:                    "com.squareup.picasso:picasso:${picassoVersion}",
+            room:                       "androidx.room:room-runtime:${roomVersion}",
+            roomCompiler:               "androidx.room:room-compiler:${roomVersion}",
+            roomRxJava:                 "androidx.room:room-rxjava2:${roomVersion}"
     ]
 }
