@@ -32,7 +32,7 @@ public class GetMovieDetails extends UseCase<Movie, GetMovieDetails.Params> {
             this.movieId = movieId;
         }
 
-        public static Params forUser(int movieId) {
+        public static Params forMovie(int movieId) {
             return new Params(movieId);
         }
     }

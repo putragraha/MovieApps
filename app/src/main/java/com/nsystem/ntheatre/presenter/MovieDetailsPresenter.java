@@ -78,7 +78,7 @@ public class MovieDetailsPresenter implements Presenter {
     }
 
     private void getMovieDetails(int movieId) {
-        this.getMovieDetailsUseCase.execute(new MovieDetailsObserver(), GetMovieDetails.Params.forUser(movieId));
+        this.getMovieDetailsUseCase.execute(new MovieDetailsObserver(), GetMovieDetails.Params.forMovie(movieId));
     }
 
     private void showMovieDetailsInView(Movie movie) {
