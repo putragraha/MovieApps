@@ -3,4 +3,6 @@
     <string name="label_trailers">Trailers:</string>
     <string name="label_favourite">Favourite</string>
     <string name="view_label_retry">Retry</string>
+    <string name="label_app_title_popular">Popular Movie</string>
+    <string name="label_app_title_top_rated">Top Rated Movie</string>
 </resources>

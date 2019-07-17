@@ -19,8 +19,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.activity.PopularMovieListActivity" />
-        <activity android:name=".view.activity.TopRatedMovieListActivity" />
+        <activity android:name=".view.activity.PopularMovieListActivity"
+            android:label="@string/label_app_title_popular"/>
+        <activity android:name=".view.activity.TopRatedMovieListActivity"
+            android:label="@string/label_app_title_top_rated"/>
         <activity android:name=".view.activity.MovieDetailsActivity" />
     </application>
 
