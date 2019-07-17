@@ -29,4 +29,8 @@ public class MovieDataFactory {
 
         return new CloudMovieData(restApi);
     }
+
+    public MovieData createLocalData() {
+        return new LocalMovieData(context);
+    }
 }

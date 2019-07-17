@@ -1,8 +1,10 @@
 package com.nsystem.data.repository;
 
+import com.nsystem.data.mapper.FavouriteMovieEntityDataMapper;
 import com.nsystem.data.mapper.MovieEntityDataMapper;
 import com.nsystem.data.repository.source.MovieData;
 import com.nsystem.data.repository.source.MovieDataFactory;
+import com.nsystem.domain.model.Favourite;
 import com.nsystem.domain.model.Movie;
 import com.nsystem.domain.repository.MovieRepository;
 
@@ -18,12 +20,15 @@ public class MovieDataRepository implements MovieRepository {
 
     private final MovieDataFactory movieDataFactory;
     private final MovieEntityDataMapper movieEntityDataMapper;
+    private final FavouriteMovieEntityDataMapper favouriteMovieEntityDataMapper;
 
     @Inject
     public MovieDataRepository(MovieDataFactory movieDataFactory,
-                               MovieEntityDataMapper movieEntityDataMapper) {
+                               MovieEntityDataMapper movieEntityDataMapper,
+                               FavouriteMovieEntityDataMapper favouriteMovieEntityDataMapper) {
         this.movieDataFactory = movieDataFactory;
         this.movieEntityDataMapper = movieEntityDataMapper;
+        this.favouriteMovieEntityDataMapper = favouriteMovieEntityDataMapper;
     }
 
     @Override
@@ -36,6 +41,12 @@ public class MovieDataRepository implements MovieRepository {
     public Observable<List<Movie>> topRatedMovies() {
         final MovieData movieData = this.movieDataFactory.createCloudData();
         return movieData.topRatedMovieEntityList().map(this.movieEntityDataMapper::transform);
+    }
+
+    @Override
+    public Observable<List<Favourite>> favouriteMovies() {
+        final MovieData movieData = this.movieDataFactory.createLocalData();
+        return movieData.favouriteMovieEntityList().map(this.favouriteMovieEntityDataMapper::transform);
     }
 
     @Override

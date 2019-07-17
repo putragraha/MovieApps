@@ -1,38 +1,42 @@
 package com.nsystem.data.repository.source;
 
+import android.content.Context;
+
 import com.nsystem.data.entity.FavouriteEntity;
 import com.nsystem.data.entity.MovieEntity;
+import com.nsystem.data.repository.local.FavouriteMovieDatabase;
 import com.nsystem.data.repository.source.network.RestApi;
 
 import java.util.List;
 
 import io.reactivex.Observable;
 
-public class CloudMovieData implements MovieData {
+public class LocalMovieData implements MovieData {
 
-    private final RestApi restApi;
+    private Context context;
 
-    public CloudMovieData(RestApi restApi) {
-        this.restApi = restApi;
+    public LocalMovieData(Context context) {
+        this.context = context.getApplicationContext();
     }
 
     @Override
     public Observable<List<MovieEntity>> popularMovieEntityList() {
-        return this.restApi.popularMovieEntityList();
-    }
-
-    @Override
-    public Observable<List<MovieEntity>> topRatedMovieEntityList() {
-        return this.restApi.topRatedMovieEntityList();
-    }
-
-    @Override
-    public Observable<List<FavouriteEntity>> favouriteMovieEntityList() {
         return null;
     }
 
     @Override
+    public Observable<List<MovieEntity>> topRatedMovieEntityList() {
+        return null;
+    }
+
+    @Override
+    public Observable<List<FavouriteEntity>> favouriteMovieEntityList() {
+        return FavouriteMovieDatabase.getDBInstance(this.context)
+                .getMovieDao().getFavouriteMovieList();
+    }
+
+    @Override
     public Observable<MovieEntity> movieEntity(int movieId) {
-        return this.restApi.movieEntity(movieId);
+        return null;
     }
 }

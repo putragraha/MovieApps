@@ -25,6 +25,8 @@
         <activity android:name=".view.activity.TopRatedMovieListActivity"
             android:label="@string/label_app_title_top_rated" />
         <activity android:name=".view.activity.MovieDetailsActivity" />
+        <activity android:name=".view.activity.FavouriteMovieListActivity"
+            android:label="@string/label_app_title_favourite"/>
     </application>
 
 </manifest>

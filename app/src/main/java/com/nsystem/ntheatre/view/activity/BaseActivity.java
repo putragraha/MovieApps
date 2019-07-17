@@ -61,8 +61,11 @@ public abstract class BaseActivity extends AppCompatActivity {
             case R.id.menu_top_rated:
                 navigator.navigateToTopRatedMovieList(this);
                 break;
-                default:
-                    break;
+            case R.id.menu_favourite:
+                navigator.navigateToFavouriteMovieList(this);
+                break;
+            default:
+                break;
         }
 
         return true;

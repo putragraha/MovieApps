@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 
+import com.nsystem.ntheatre.view.activity.FavouriteMovieListActivity;
 import com.nsystem.ntheatre.view.activity.MovieDetailsActivity;
 import com.nsystem.ntheatre.view.activity.PopularMovieListActivity;
 import com.nsystem.ntheatre.view.activity.TopRatedMovieListActivity;
@@ -28,6 +29,14 @@ public class Navigator {
     public void navigateToTopRatedMovieList(Context context) {
         if (context != null) {
             Intent intentToLaunch = TopRatedMovieListActivity.getCallingIntent(context);
+            context.startActivity(intentToLaunch);
+            ((Activity) context).finish();
+        }
+    }
+
+    public void navigateToFavouriteMovieList(Context context) {
+        if (context != null) {
+            Intent intentToLaunch = FavouriteMovieListActivity.getCallingIntent(context);
             context.startActivity(intentToLaunch);
             ((Activity) context).finish();
         }
