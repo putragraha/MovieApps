@@ -17,6 +17,7 @@ public class MovieModel {
     private int duration;
     private String popularity;
     private List<TrailerModel> trailerModelList;
+    private boolean isFavourite;
 
     public MovieModel(int movieId) {
         this.movieId = movieId;
@@ -88,6 +89,14 @@ public class MovieModel {
 
     public void setTrailerModelList(List<TrailerModel> trailerModelList) {
         this.trailerModelList = trailerModelList;
+    }
+
+    public boolean isFavourite() {
+        return isFavourite;
+    }
+
+    public void setFavourite(boolean favourite) {
+        isFavourite = favourite;
     }
 }
 

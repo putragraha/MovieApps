@@ -95,4 +95,34 @@ public final class FavouriteMovieDao_Impl implements FavouriteMovieDao {
       }
     });
   }
+
+  @Override
+  public FavouriteEntity getFavouriteMovie(final int movieId) {
+    final String _sql = "SELECT * FROM Favourite WHERE movieId = ?";
+    final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
+    int _argIndex = 1;
+    _statement.bindLong(_argIndex, movieId);
+    __db.assertNotSuspendingTransaction();
+    final Cursor _cursor = DBUtil.query(__db, _statement, false);
+    try {
+      final int _cursorIndexOfMovieId = CursorUtil.getColumnIndexOrThrow(_cursor, "movieId");
+      final int _cursorIndexOfPosterPath = CursorUtil.getColumnIndexOrThrow(_cursor, "posterPath");
+      final FavouriteEntity _result;
+      if(_cursor.moveToFirst()) {
+        _result = new FavouriteEntity();
+        final int _tmpMovieId;
+        _tmpMovieId = _cursor.getInt(_cursorIndexOfMovieId);
+        _result.setMovieId(_tmpMovieId);
+        final String _tmpPosterPath;
+        _tmpPosterPath = _cursor.getString(_cursorIndexOfPosterPath);
+        _result.setPosterPath(_tmpPosterPath);
+      } else {
+        _result = null;
+      }
+      return _result;
+    } finally {
+      _cursor.close();
+      _statement.release();
+    }
+  }
 }

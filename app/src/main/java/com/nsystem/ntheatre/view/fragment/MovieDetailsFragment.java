@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -141,7 +142,15 @@ public class MovieDetailsFragment extends BaseFragment implements MovieDetailsVi
                 this.textViewDuration.setText(duration);
                 this.textViewPopularity.setText(popularity);
                 this.textViewOverview.setText(this.movieModel.getOverview());
+                this.btnFavourite.setChecked(this.movieModel.isFavourite());
                 setupRecyclerView(this.movieModel.getTrailerModelList());
+
+                this.btnFavourite.setOnCheckedChangeListener((compoundButton, b) -> {
+                    Favourite favourite = new Favourite();
+                    favourite.setMovieId(MovieDetailsFragment.this.movieModel.getMovieId());
+                    favourite.setPosterPath(MovieDetailsFragment.this.movieModel.getPosterPath());
+                    MovieDetailsFragment.this.movieDetailsPresenter.addFavouriteMovie(favourite);
+                });
             } catch (ParseException parseException) {
                 showToastMessage(parseException.getMessage());
             }
@@ -237,13 +246,5 @@ public class MovieDetailsFragment extends BaseFragment implements MovieDetailsVi
     @OnClick(R.id.btn_retry)
     void onButtonRetryClick() {
         MovieDetailsFragment.this.loadMovieDetails();
-    }
-
-    @OnCheckedChanged(R.id.btn_details_favourite)
-    void onChecked() {
-        Favourite favourite = new Favourite();
-        favourite.setMovieId(this.movieModel.getMovieId());
-        favourite.setPosterPath(this.movieModel.getPosterPath());
-        this.movieDetailsPresenter.addFavouriteMovie(favourite);
     }
 }

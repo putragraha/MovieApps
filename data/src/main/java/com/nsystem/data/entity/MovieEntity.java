@@ -32,6 +32,8 @@ public class MovieEntity {
 
     private List<TrailerEntity> trailerEntityList;
 
+    private boolean isFavourite;
+
     public int getMovieId() {
         return movieId;
     }
@@ -70,5 +72,13 @@ public class MovieEntity {
 
     public void setTrailerEntityList(List<TrailerEntity> trailerEntityList) {
         this.trailerEntityList = trailerEntityList;
+    }
+
+    public boolean isFavourite() {
+        return isFavourite;
+    }
+
+    public void setFavourite(boolean favourite) {
+        isFavourite = favourite;
     }
 }

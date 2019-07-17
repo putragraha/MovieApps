@@ -4,10 +4,12 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
+import com.nsystem.data.entity.FavouriteEntity;
 import com.nsystem.data.entity.MovieEntity;
 import com.nsystem.data.entity.TrailerEntity;
 import com.nsystem.data.mapper.MovieEntityJsonMapper;
 import com.nsystem.data.mapper.TrailerEntityJsonMapper;
+import com.nsystem.data.repository.local.FavouriteMovieDatabase;
 
 import java.net.MalformedURLException;
 import java.util.List;
@@ -131,6 +133,11 @@ public class RestApiImplementation implements RestApi{
                                     trailerEntities.remove(trailerEntity);
                                 }
                             }
+
+                            FavouriteEntity favouriteEntity = FavouriteMovieDatabase.getDBInstance(context).getMovieDao()
+                                    .getFavouriteMovie(newMovieEntity.getMovieId());
+
+                            newMovieEntity.setFavourite(favouriteEntity != null);
                             newMovieEntity.setTrailerEntityList(trailerEntities);
                         }
 

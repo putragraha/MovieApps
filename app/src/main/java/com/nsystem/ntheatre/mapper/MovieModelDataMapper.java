@@ -36,6 +36,7 @@ public class MovieModelDataMapper {
         movieModel.setPopularity(movie.getPopularity());
         movieModel.setDuration(movie.getDuration());
         movieModel.setTrailerModelList(trailerModelList);
+        movieModel.setFavourite(movie.isFavourite());
 
         return movieModel;
     }

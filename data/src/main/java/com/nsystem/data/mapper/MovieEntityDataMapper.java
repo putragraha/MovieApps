@@ -46,6 +46,7 @@ public class MovieEntityDataMapper {
             movie.setDuration(movieEntity.getDuration());
             movie.setPopularity(movieEntity.getPopularity());
             movie.setTrailerList(trailerList);
+            movie.setFavourite(movieEntity.isFavourite());
         }
         return movie;
     }

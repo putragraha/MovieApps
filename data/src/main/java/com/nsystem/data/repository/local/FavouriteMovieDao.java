@@ -16,6 +16,9 @@ public interface FavouriteMovieDao {
     @Query("SELECT * FROM Favourite")
     Observable<List<FavouriteEntity>> getFavouriteMovieList();
 
+    @Query("SELECT * FROM Favourite WHERE movieId = :movieId")
+    FavouriteEntity getFavouriteMovie(int movieId);
+
     @Insert
     Long addFavouriteMovie(FavouriteEntity favouriteEntity);
 }
