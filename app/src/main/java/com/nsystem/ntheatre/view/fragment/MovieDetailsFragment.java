@@ -2,7 +2,6 @@ package com.nsystem.ntheatre.view.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,17 +13,21 @@ import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.nsystem.ntheatre.R;
 import com.nsystem.ntheatre.internal.di.components.MovieComponent;
 import com.nsystem.ntheatre.model.MovieModel;
+import com.nsystem.ntheatre.model.TrailerModel;
 import com.nsystem.ntheatre.presenter.MovieDetailsPresenter;
 import com.nsystem.ntheatre.util.ConvertDate;
 import com.nsystem.ntheatre.view.MovieDetailsView;
+import com.nsystem.ntheatre.view.adapter.TrailerAdapter;
 import com.squareup.picasso.Picasso;
 
 import java.text.ParseException;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -34,10 +37,10 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 
 public class MovieDetailsFragment extends BaseFragment implements MovieDetailsView {
-    private static final String TAG = "MovieDetailsFragment";
     private static final String PARAM_MOVIE_ID = "param_movie_id";
 
     @Inject MovieDetailsPresenter movieDetailsPresenter;
+    @Inject TrailerAdapter trailerAdapter;
 
     @BindView(R.id.tv_title) TextView textViewTitle;
     @BindView(R.id.iv_details_poster) ImageView imageViewPoster;
@@ -125,10 +128,27 @@ public class MovieDetailsFragment extends BaseFragment implements MovieDetailsVi
                 this.textViewDuration.setText(duration);
                 this.textViewPopularity.setText(popularity);
                 this.textViewOverview.setText(movieModel.getOverview());
+                setupRecyclerView(movieModel.getTrailerModelList());
             } catch (ParseException parseException) {
                 showToastMessage(parseException.getMessage());
             }
         }
+    }
+
+    @Override
+    public void openTrailer(TrailerModel trailerModel) {
+        System.out.println(trailerModel.getKey());
+    }
+
+    private void setupRecyclerView(List<TrailerModel> trailerModelList) {
+        this.trailerAdapter.setTrailerCollection(trailerModelList);
+        this.trailerAdapter.setOnItemClickListener(trailerModel -> {
+            if (MovieDetailsFragment.this.movieDetailsPresenter != null && trailerModel != null) {
+                MovieDetailsFragment.this.movieDetailsPresenter.onTrailerClicked(trailerModel);
+            }
+        });
+        this.viewTrailerList.setLayoutManager(new LinearLayoutManager(context()));
+        this.viewTrailerList.setAdapter(this.trailerAdapter);
     }
 
     @Override

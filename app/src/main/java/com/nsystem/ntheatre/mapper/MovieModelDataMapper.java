@@ -3,14 +3,18 @@ package com.nsystem.ntheatre.mapper;
 
 import com.nsystem.domain.model.Movie;
 import com.nsystem.ntheatre.model.MovieModel;
+import com.nsystem.ntheatre.model.TrailerModel;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 import javax.inject.Inject;
 
 public class MovieModelDataMapper {
+
+    @Inject TrailerModelDataMapper trailerModelDataMapper;
 
     @Inject
     public MovieModelDataMapper() {}
@@ -20,6 +24,9 @@ public class MovieModelDataMapper {
             throw new IllegalArgumentException("Cannot transform a null value");
         }
 
+        List<TrailerModel> trailerModelList =
+                this.trailerModelDataMapper.transform(movie.getTrailerList());
+
         final MovieModel movieModel = new MovieModel(movie.getMovieId());
         movieModel.setOriginalTitle(movie.getOriginalTitle());
         movieModel.setOverview(movie.getOverview());
@@ -28,6 +35,7 @@ public class MovieModelDataMapper {
         movieModel.setReleaseDate(movie.getReleaseDate());
         movieModel.setPopularity(movie.getPopularity());
         movieModel.setDuration(movie.getDuration());
+        movieModel.setTrailerModelList(trailerModelList);
 
         return movieModel;
     }

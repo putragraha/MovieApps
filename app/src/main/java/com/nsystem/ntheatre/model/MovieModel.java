@@ -16,6 +16,7 @@ public class MovieModel {
     private String releaseDate;
     private int duration;
     private String popularity;
+    private List<TrailerModel> trailerModelList;
 
     public MovieModel(int movieId) {
         this.movieId = movieId;
@@ -79,6 +80,14 @@ public class MovieModel {
 
     public void setPopularity(String popularity) {
         this.popularity = popularity;
+    }
+
+    public List<TrailerModel> getTrailerModelList() {
+        return trailerModelList;
+    }
+
+    public void setTrailerModelList(List<TrailerModel> trailerModelList) {
+        this.trailerModelList = trailerModelList;
     }
 }
 

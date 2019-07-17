@@ -8,6 +8,7 @@ public class TrailerEntity {
     private String trailerId;
     private String key;
     private String name;
+    private String site;
 
     public String getTrailerId() {
         return trailerId;
@@ -19,5 +20,9 @@ public class TrailerEntity {
 
     public String getName() {
         return name;
+    }
+
+    public String getSite() {
+        return site;
     }
 }

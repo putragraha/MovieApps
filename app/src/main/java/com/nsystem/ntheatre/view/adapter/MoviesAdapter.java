@@ -67,7 +67,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
     }
 
     public void setMoviesCollection(Collection<MovieModel> moviesModelCollection) {
-        this.validateUsersCollection(moviesModelCollection);
+        this.validateMoviesCollection(moviesModelCollection);
         this.moviesCollection = (List<MovieModel>) moviesModelCollection;
         this.notifyDataSetChanged();
     }
@@ -76,7 +76,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
         this.onItemClickListener = onItemClickListener;
     }
 
-    private void validateUsersCollection(Collection<MovieModel> moviesModelCollection) {
+    private void validateMoviesCollection(Collection<MovieModel> moviesModelCollection) {
         if (moviesModelCollection == null) {
             throw new IllegalArgumentException("The list cannot be null");
         }

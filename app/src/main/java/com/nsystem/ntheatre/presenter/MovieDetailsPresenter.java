@@ -7,6 +7,7 @@ import com.nsystem.domain.model.Movie;
 import com.nsystem.ntheatre.internal.di.PerActivity;
 import com.nsystem.ntheatre.mapper.MovieModelDataMapper;
 import com.nsystem.ntheatre.model.MovieModel;
+import com.nsystem.ntheatre.model.TrailerModel;
 import com.nsystem.ntheatre.view.MovieDetailsView;
 
 import javax.inject.Inject;
@@ -50,6 +51,10 @@ public class MovieDetailsPresenter implements Presenter {
         this.hideViewRetry();
         this.showViewLoading();
         this.getMovieDetails(movieId);
+    }
+
+    public void onTrailerClicked(TrailerModel trailerModel) {
+        this.viewDetailsView.openTrailer(trailerModel);
     }
 
     private void showViewRetry() {
