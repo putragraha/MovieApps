@@ -53,6 +53,8 @@ public class MovieDetailsPresenter implements Presenter {
     @Override
     public void destroy() {
         this.getMovieDetailsUseCase.dispose();
+        this.addFavouriteUseCase.dispose();
+        this.unFavouriteUseCase.dispose();
         this.viewDetailsView = null;
     }
 
